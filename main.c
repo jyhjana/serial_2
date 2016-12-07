@@ -5,11 +5,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-//#include <string.h>
-//#include <sys/types.h>
-//#include <sys/stat.h>
-//#include <fcntl.h>
-//#include <unistd.h>
 #include <signal.h>
 
 #include "serial.h"
@@ -115,10 +110,10 @@ void* pthread_data_proto_proc(void * msg)
 // 程序退出时的函数操作
 void sighander(int n,struct siginfo *siginfo,void *myact)
 {
-    printf("signal number:%d\n",n);/** 打印出信号值 **/
-    printf("siginfo signo:%d\n",siginfo->si_signo); /** siginfo结构里保存的信号值 **/
-    printf("siginfo errno:%d\n",siginfo->si_errno); /** 打印出错误代码 **/
-    printf("siginfo code:%d\n",siginfo->si_code);   /**　打印出出错原因 **/
+//    printf("signal number:%d\n",n);/** 打印出信号值 **/
+//    printf("siginfo signo:%d\n",siginfo->si_signo); /** siginfo结构里保存的信号值 **/
+//    printf("siginfo errno:%d\n",siginfo->si_errno); /** 打印出错误代码 **/
+//    printf("siginfo code:%d\n",siginfo->si_code);   /**　打印出出错原因 **/
     exit(0);
 }
 int main(int argc, char **argv)
