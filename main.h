@@ -21,7 +21,6 @@ typedef struct {
 }SerBuf;
 
 typedef struct {
-    WORD used;
     pthread_t thid;
     sem_t sem;//信号量
     int      fd;     /* file id */

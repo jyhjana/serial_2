@@ -145,6 +145,7 @@ uint16_t radio_protocol_unpack(uint8_t* pbuf,uint8_t buflen)
 {
     uint8_t len = 0;
     uint8_t datalen = 0;
+    if (buflen<1)return LEN_ERR;
     if((pbuf[HEAD1_OFFSET] != 0xA5) && (pbuf[HEAD1_OFFSET] != 0x5A))
     {
         return (1<<8 |HEAD_ERR);//报文头错误
