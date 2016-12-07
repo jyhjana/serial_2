@@ -1,0 +1,1 @@
+/usr/bin/cc  -g   CMakeFiles/serial.dir/main.c.o CMakeFiles/serial.dir/data_radio_protocol.c.o CMakeFiles/serial.dir/serial.c.o  -o serial -lpthread 
