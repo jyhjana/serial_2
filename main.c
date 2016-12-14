@@ -114,32 +114,26 @@ void* pthread_data_proto_proc(void * msg)
     uint8_t cmdType;
     while (1)
     {
+        status = DATA_OK;
         sem_wait (&serial.sem);
         uartBuf = &serial.rx_buf;
-        while (status != DATA_LOST)
+        if (uartBuf->wp != uartBuf->rp)
         {
             recvlen = (uartBuf->wp - uartBuf->rp + SERIAL_BUF_NUM)%SERIAL_BUF_NUM;
             ret = radio_protocol_unpack(uartBuf->addr+uartBuf->rp,recvlen);
             datalen = (ret>>8) & 0xff;
             uartBuf->rp += datalen;
             status = ret & 0x00ff;
-            switch (status)
+            if (status == DATA_OK)
             {
-                case DATA_OK:
-                    cmdType = get_cmdType(uartBuf->addr+uartBuf->rp);
-                    addr = get_addr(uartBuf->addr+uartBuf->rp);
-                    sendlen =  radio_protocol_ack(cmdType,addr,serial.tx_buf.addr+serial.tx_buf.wp);
-                    serial.tx_buf.wp += sendlen;
-                    ret = write(serial.fd,serial.tx_buf.addr+serial.tx_buf.rp,sendlen);
-                    if(ret==sendlen);
-                    serial.tx_buf.rp = serial.tx_buf.wp = 0;
-                    break;
-                case DATA_LOST:
+                cmdType = get_cmdType(uartBuf->addr+uartBuf->rp);
+                addr = get_addr(uartBuf->addr+uartBuf->rp);
+                sendlen =  radio_protocol_ack(cmdType,addr,serial.tx_buf.addr+serial.tx_buf.wp);
+                //serial.tx_buf.wp += sendlen;
+                ret = write(serial.fd,serial.tx_buf.addr+serial.tx_buf.rp,sendlen);
+                //if(ret==sendlen);
+                //serial.tx_buf.rp = serial.tx_buf.wp = 0;
 
-                    break;
-                default:
-
-                    break;
             }
             for(i=0;i<recvlen-datalen;i++)
             {
@@ -150,6 +144,8 @@ void* pthread_data_proto_proc(void * msg)
             pthread_mutex_lock(&mutex);
             serial.rx_buf.wp -= datalen;
             pthread_mutex_unlock(&mutex);
+
+
 
         }
 
@@ -199,9 +195,8 @@ int main(int argc, char **argv)
             {
                 while((nread = read(serial.fd,buff,128))>0)
                 {
-                    buff[nread] = '\n';
-                    printf("nread = %d,%s",nread,buff);
-                    DumpHex(serial.rx_buf.addr+serial.rx_buf.wp,ret);
+
+                    DumpHex(buff,nread);
                     pthread_mutex_lock(&mutex);
                     for (i = 0; i < nread; ++i)
                     {
