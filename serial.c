@@ -93,7 +93,7 @@ int set_opt(int fd,int nSpeed, int nBits, char nEvent, int nStop)
 int open_port(int fd,char* comport)
 {
 
-    {    fd = open( comport, O_RDWR|O_NOCTTY|O_NDELAY);
+      fd = open( comport, O_RDWR|O_NOCTTY|O_NDELAY);
         if (-1 == fd)
         {
             perror("Can't Open Serial Port");
@@ -101,9 +101,9 @@ int open_port(int fd,char* comport)
         }
         else
         {
-            printf("open %s .....\n",dev[0]);
+            printf("open %s .....\n",comport);
         }
-    }
+  
 
     if(fcntl(fd, F_SETFL, 0)<0)
     {
