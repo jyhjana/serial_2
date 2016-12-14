@@ -2,8 +2,8 @@
 // Created by jyh on 16-12-6.
 //
 
-#ifndef SERIAL_MAIN_H
-#define SERIAL_MAIN_H
+#ifndef _MAIN_H
+#define _MAIN_H
 #include <unistd.h>
 #include <pthread.h>
 #include <semaphore.h>
