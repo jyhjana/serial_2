@@ -5,5 +5,5 @@
 #define _SERIAL__H
 
 int set_opt(int fd,int nSpeed, int nBits, char nEvent, int nStop);
-int open_port(int fd,int comport);
+int open_port(int fd,char* comport)
 #endif //SERIAL_SER

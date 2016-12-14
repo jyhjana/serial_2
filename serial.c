@@ -90,12 +90,10 @@ int set_opt(int fd,int nSpeed, int nBits, char nEvent, int nStop)
     return 0;
 }
 
-int open_port(int fd,int comport)
+int open_port(int fd,char* comport)
 {
-    char *dev[]={"/dev/ttyS0","/dev/ttyS1","/dev/ttyS3"};
-    long  vdisable;
-    if (comport==1)
-    {    fd = open( dev[0], O_RDWR|O_NOCTTY|O_NDELAY);
+
+    {    fd = open( comport, O_RDWR|O_NOCTTY|O_NDELAY);
         if (-1 == fd)
         {
             perror("Can't Open Serial Port");
@@ -106,31 +104,7 @@ int open_port(int fd,int comport)
             printf("open %s .....\n",dev[0]);
         }
     }
-    else if(comport==2)
-    {    fd = open( dev[1], O_RDWR|O_NOCTTY|O_NDELAY);
-        if (-1 == fd)
-        {
-            perror("Can't Open Serial Port");
-            return(-1);
-        }
-        else
-        {
-            printf("open %s .....\n"),dev[1];
-        }
-    }
-    else if (comport==3)
-    {
-        fd = open( dev[2], O_RDWR|O_NOCTTY|O_NDELAY);
-        if (-1 == fd)
-        {
-            perror("Can't Open Serial Port");
-            return(-1);
-        }
-        else
-        {
-            printf("open %s .....\n",dev[2]);
-        }
-    }
+
     if(fcntl(fd, F_SETFL, 0)<0)
     {
         printf("fcntl failed!\n");

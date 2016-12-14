@@ -21,7 +21,7 @@ static void _DumpLine(long addr, unsigned char* buf, int len)
     char line[80+1];
 
     // Address field
-    pos = sprintf(line, "%08X ", addr);
+    pos = sprintf(line, "%08X ", (unsigned int)addr);
 
     // Hex content
     for (i = 0; i < 16; ++i) {
@@ -64,7 +64,7 @@ int SerialOpen()
     int ret;
 
     /*打开串口*/
-    if((serial.fd = open_port(serial.fd,2)) < 0)
+    if((serial.fd = open_port(serial.fd,"/dev/ttyS1")) < 0)
     {
         perror("open_port error!\n");
         return -1;
