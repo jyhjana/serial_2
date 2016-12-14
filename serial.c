@@ -92,7 +92,7 @@ int set_opt(int fd,int nSpeed, int nBits, char nEvent, int nStop)
 
 int open_port(int fd,int comport)
 {
-    char *dev[]={"/dev/ttyUSB0","/dev/ttyUSB1","/dev/ttyS1"};
+    char *dev[]={"/dev/ttyS0","/dev/ttyS1","/dev/ttyS3"};
     long  vdisable;
     if (comport==1)
     {    fd = open( dev[0], O_RDWR|O_NOCTTY|O_NDELAY);

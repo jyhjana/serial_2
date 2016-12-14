@@ -64,7 +64,7 @@ int SerialOpen()
     int ret;
 
     /*打开串口*/
-    if((serial.fd = open_port(serial.fd,1)) < 0)
+    if((serial.fd = open_port(serial.fd,2)) < 0)
     {
         perror("open_port error!\n");
         return -1;
